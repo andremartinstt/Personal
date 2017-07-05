@@ -4,6 +4,8 @@
 	<meta charset="utf-8">
 	<title>Personal</title>
 	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/jquery.maskedinput.js" type="text/javascript"></script>
 </head>
 <body>
     <!--<nav>
@@ -37,15 +39,15 @@
     </section>
         
     <section id="secao3" class="slide">
-        <form class="form-contact" action="" method="POST">
+        <form class="form-contact" id="submit_form">
             <h2 class="page-title">Entre em contato</h2>
             <p class="form-group">
                 <label for="nome">Nome</label>
-                <input class="field" type="text" id="nome" placeholder="Nome" required="required" name="nome" />
+                <input class="field" type="text" id="name" placeholder="Nome" required="required" name="name" />
             </p>
             <p class="form-group">
                 <label for="telefone">Telefone</label>
-                <input class="field" type="text" id="tel" placeholder="(xx)xxxx-xxxx" name="telefone" />
+                <input class="field" type="text" id="tel" placeholder="(xx)xxxx-xxxx" name="tel" />
             </p>
             <p class="form-group">
                 <label for="email">E-mail</label>
@@ -53,12 +55,48 @@
             </p>
             <p class="form-group">
                 <label for="mensagem">Mensagem</label>
-                <textarea class="field" type="text" id="msg" placeholder="Deixe sua mensagem" name="mensagem"></textarea>
+                <textarea class="field" type="text" id="message" placeholder="Deixe sua mensagem" name="message"></textarea>
             </p>
             <p class="form-group">
-                <input type="submit" class="button" value="Enviar">
+                <input type="button" class="button" id="button" value="Enviar">
             </p>
+            <span id="error_message" class="msg1"></span>
+            <span id="success_message msg2"></span>
         </form>
     </section>
+
+
+    <!-- https://www.youtube.com/watch?v=QJ5fUSYRdrU -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#button').click(function(){
+                var name = $('#name').val();
+                var email = $('#email').val();
+                var message = $('#message').val();
+
+                if(name == '' || email == '' || message == ''){
+                    $('#error_message').html("<h3>All Fields are Required!</h3>");
+                } else{
+                    $('#error_message').html('');
+                    $.ajax({
+                        url: "sendmail.php",
+                        method: "POST",
+                        data: {name: name, email: email, message: message},
+                        success: function(data){
+                            $("form").trigger("reset");
+                            $('#success_message').fadeIn().html(data);
+                            setTimeOut(function(){
+                                $('#success_message').fadeOut('slow');
+                            }, 2000);
+                        }
+                    });
+                }
+            });
+        });
+
+        jQuery(function($){
+            $("#tel").mask("(99) 99999-9999");
+        });
+    </script>
 </body>
 </html>

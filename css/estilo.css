@@ -131,3 +131,15 @@ p {
 .button:hover {
     text-decoration: underline;
 }
+
+#error_message h3{
+    font-family: 'Arial', sans-serif;
+    color: red;
+    font-weight: normal;
+}
+
+#success_message{
+    font-family: 'Arial', sans-serif;
+    color: green;
+    font-weight: normal;
+}
