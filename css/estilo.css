@@ -126,7 +126,7 @@ p {
     text-transform: uppercase;
     font-size: 18px;
     font-family: 'Raleway', sans-serif;
-    cursor: pointer; /* Muda o estilo do cursor */
+    cursor: pointer;
 }
 .button:hover {
     text-decoration: underline;
@@ -134,12 +134,6 @@ p {
 
 #error_message h3{
     font-family: 'Arial', sans-serif;
-    color: red;
-    font-weight: normal;
-}
-
-#success_message{
-    font-family: 'Arial', sans-serif;
-    color: green;
+    color: #ff0000;
     font-weight: normal;
 }

@@ -24,7 +24,7 @@
     </section>
         
     <section id="secao2" class="slide">
-        <h2>Sobre a Minha Pessoa</h2>
+        <h2>About Me</h2>
         <div class="left">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -40,28 +40,28 @@
         
     <section id="secao3" class="slide">
         <form class="form-contact" id="submit_form">
-            <h2 class="page-title">Entre em contato</h2>
+            <h2 class="page-title">Contact Us</h2>
             <p class="form-group">
-                <label for="nome">Nome</label>
+                <label for="nome">Name</label>
                 <input class="field" type="text" id="name" placeholder="Nome" required="required" name="name" />
-            </p>
-            <p class="form-group">
-                <label for="telefone">Telefone</label>
-                <input class="field" type="text" id="tel" placeholder="(xx)xxxx-xxxx" name="tel" />
             </p>
             <p class="form-group">
                 <label for="email">E-mail</label>
                 <input class="field" type="email" id="email" placeholder="E-mail" required="required" name="email" />
             </p>
             <p class="form-group">
-                <label for="mensagem">Mensagem</label>
+                <label for="assunto">Subject</label>
+                <input class="field" type="text" id="assunto" placeholder="Assunto" name="assunto" />
+            </p>
+            <p class="form-group">
+                <label for="mensagem">Message</label>
                 <textarea class="field" type="text" id="message" placeholder="Deixe sua mensagem" name="message"></textarea>
             </p>
             <p class="form-group">
-                <input type="button" class="button" id="button" value="Enviar">
+                <input type="button" class="button" id="button" value="Submit">
             </p>
-            <span id="error_message" class="msg1"></span>
-            <span id="success_message msg2"></span>
+            <span id="error_message"></span>
+            <span id="success_message"></span>
         </form>
     </section>
 
@@ -72,16 +72,17 @@
             $('#button').click(function(){
                 var name = $('#name').val();
                 var email = $('#email').val();
+                var assunto = $('#assunto').val();
                 var message = $('#message').val();
 
-                if(name == '' || email == '' || message == ''){
+                if(name == '' || email == '' || assunto == '' || message == ''){
                     $('#error_message').html("<h3>All Fields are Required!</h3>");
                 } else{
                     $('#error_message').html('');
                     $.ajax({
                         url: "sendmail.php",
                         method: "POST",
-                        data: {name: name, email: email, message: message},
+                        data: {name: name, email: email, assunto: assunto, message: message},
                         success: function(data){
                             $("form").trigger("reset");
                             $('#success_message').fadeIn().html(data);
@@ -94,9 +95,6 @@
             });
         });
 
-        jQuery(function($){
-            $("#tel").mask("(99) 99999-9999");
-        });
     </script>
 </body>
 </html>
